@@ -1,35 +1,38 @@
 const { Language, util } = require('klasa');
+const convert = require('convert-seconds');
 
 module.exports = class extends Language {
 
 	constructor(...args) {
 		super(...args);
 		this.language = {
-			// Start of custom language strings
-
+			/*
+       *
+       * Start of custom language strings
+       *
+       */
 			// Miscellaneous
-			SETTINGS: 'Settings',
-			LANGUAGE: 'Language',
+			SETTINGS: 'Configurações',
+			LANGUAGE: 'Idioma',
 
 			// Config Command
-			COMMAND_CONFIG_GENERAL_DESCRIPTION: 'These are the general settings of the bot in this server.',
-			COMMAND_CONFIG_REACTION_DESCRIPTION: "These are the bot's settings in this server related to the custom reactions feature.",
-			COMMAND_CONFIG_REACTION_RESPONSES: (amount) => amount ? `There are ${amount} registered responses.` : `No registered responses.`,
+			COMMAND_CONFIG_GENERAL_DESCRIPTION: 'Essas são as configurações gerais do bot neste servidor.',
+			COMMAND_CONFIG_REACTION_DESCRIPTION: 'Essas são as configurações do bot neste servidor relacionadas ao recurso de reações customizadas.',
+			COMMAND_CONFIG_REACTION_RESPONSES: (amount) => amount ? `Existem ${amount} respostas registradas` : `Nenhuma resposta registrada.`,
+
 			// Language Command
-			COMMAND_LANGUAGE_SUCCESS: (language) => `This server's language has been set to ${language}.`,
+			COMMAND_LANGUAGE_SUCCESS: (language) => `O idioma deste servidor foi definido como ${language}.`,
 
 			// Prefix Command
-			COMMAND_PREFIX_RESET: "The bot's prefix has been reset successfully. The prefix is: `loud `.",
-			COMMAND_PREFIX_SUCCESS: (prefix) => `The bot's prefix in this server has been set to: ${prefix}`,
+			COMMAND_PREFIX_RESET: 'O prefixo foi resetado com sucesso. Agora é: `,`.',
+			COMMAND_PREFIX_SUCCESS: (prefix) => `O prefixo neste servidor foi definido como: ${prefix}`,
 
 			// Slow Command
-			COMMAND_SLOW_SUCCESS: (duration) =>
-				duration !== 0 ? `Slow mode has been activated in this channel, with a cooldown of ${duration} seconds per message.` : `Slow mode has been turned off in this channel!`,
+			COMMAND_SLOW_SUCCESS: (duration) => duration !== 0 ? `O modo lento foi ativado neste canal, com um cooldown de ${duration} segundos por mensagem.` : `O modo lento neste canal foi desativado!`,
 
-			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
+			DEFAULT: (key) => `${key} ainda não foi traduzido para o Português.`,
 			DEFAULT_LANGUAGE: 'Default Language',
-			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) =>
-				`The prefix${Array.isArray(prefix) ? `es for this guild are: ${prefix.map((pre) => `\`${pre}\``).join(', ')}` : ` in this guild is set to: \`${prefix}\``}`,
+			PREFIX_REMINDER: (prefix = `@${this.client.user.tag}`) => `O prefixo neste servidor é \`${prefix}\``,
 			SETTING_GATEWAY_EXPECTS_GUILD: 'The parameter <Guild> expects either a Guild or a Guild Object.',
 			SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
 			SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
@@ -65,7 +68,7 @@ module.exports = class extends Language {
 			RESOLVER_MINMAX_MAX: (name, max, suffix) => `${name} must be less than ${max}${suffix}.`,
 			REACTIONHANDLER_PROMPT: 'Which page would you like to jump to?',
 			COMMANDMESSAGE_MISSING: 'Missing one or more required arguments after end of input.',
-			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `${name} is a required argument.`,
+			COMMANDMESSAGE_MISSING_REQUIRED: (name) => `Você precisa dizer qual ${name} vai receber este ponto de reputação! Tente novamente.`,
 			COMMANDMESSAGE_MISSING_OPTIONALS: (possibles) => `Missing a required option: (${possibles})`,
 			COMMANDMESSAGE_NOMATCH: (possibles) => `Your option didn't match any of the possibilities: (${possibles})`,
 			// eslint-disable-next-line max-len
@@ -77,14 +80,14 @@ module.exports = class extends Language {
 					'**, **'
 				)}** to cancel this prompt.`,
 			MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
-			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
-			INHIBITOR_DISABLED_GUILD: 'This command has been disabled by an admin in this guild.',
-			INHIBITOR_DISABLED_GLOBAL: 'This command has been globally disabled by the bot owner.',
+			INHIBITOR_COOLDOWN: (remaining) => `Você poderá usar este comando novamente em ${convert(remaining).hours > 0 ? `${convert(remaining).hours} hora${convert(remaining).hours === 1 ? '' : 's'}, ` : ''}${convert(remaining).minutes} minuto${convert(remaining).minutes === 1 ? '' : 's'} e ${convert(remaining).seconds} segundo${convert(remaining).seconds === 1 ? '' : 's'}.`,
+			INHIBITOR_DISABLED_GUILD: 'Este comando foi desativado nesta guilda.',
+			INHIBITOR_DISABLED_GLOBAL: 'Este comando foi desativado pelo administrador do bot.',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
 			INHIBITOR_NSFW: 'You can only use NSFW commands in NSFW channels.',
-			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command.',
+			INHIBITOR_PERMISSIONS: 'Você não tem permissão para usar este comando, entre em contato com um administrador.',
 			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
-			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
+			INHIBITOR_RUNIN: (types) => `Este comand só está disponível em canais do tipo ${types}.`,
 			INHIBITOR_RUNIN_NONE: (name) => `The ${name} command is not configured to run in any channel.`,
 			COMMAND_BLACKLIST_DESCRIPTION: 'Blacklists or un-blacklists users and guilds from the bot.',
 			COMMAND_BLACKLIST_SUCCESS: (usersAdded, usersRemoved, guildsAdded, guildsRemoved) =>
@@ -130,7 +133,7 @@ module.exports = class extends Language {
 			COMMAND_LOAD_DESCRIPTION: 'Load a piece from your bot.',
 			COMMAND_PING: 'Ping?',
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
-			COMMAND_PINGPONG: (diff, ping) => `Pong! (Roundtrip took: ${diff}ms. Heartbeat: ${ping}ms.)`,
+			COMMAND_PINGPONG: (diff, ping) => `Pong! (Tempo da viagem de ida e volta: ${diff}ms. Batida: ${ping}ms.)`,
 			COMMAND_INVITE: () => [
 				`To add ${this.client.user.username} to your discord guild:`,
 				`<${this.client.invite}>`,
