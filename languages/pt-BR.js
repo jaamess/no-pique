@@ -58,7 +58,7 @@ module.exports = class extends Language {
 			MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT: (tag, name, time, cancelOptions) => `${tag} | **${name}** is a repeating argument | You have **${time}** seconds to respond to this prompt with additional valid arguments. Type **${cancelOptions.join('**, **')}** to cancel this prompt.`,
 			MONITOR_COMMAND_HANDLER_ABORTED: 'Aborted',
 			// eslint-disable-next-line max-len
-			INHIBITOR_COOLDOWN: (remaining, guildCooldown) => `${guildCooldown ? 'Someone has' : 'You have'} already used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
+			INHIBITOR_COOLDOWN: (remaining, guildCooldown) => `${guildCooldown ? 'Este servidor' : 'Você'} poderá usar este comando novamente em ${remaining} segundo${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED_GUILD: 'Este comando foi desativado pelo administrador deste servidor.',
 			INHIBITOR_DISABLED_GLOBAL: 'Este comando foi desativado pelo administrador do bot.',
 			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Permissões insuficientes, falta: **${missing}**`,
