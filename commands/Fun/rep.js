@@ -9,8 +9,7 @@ module.exports = class extends Command {
             runIn: ['text'],
             cooldown: 180,
             permissionLevel: 0,
-            description: '',
-            extendedHelp: 'Dá um ponto de reputação para outro usuário.',
+            description: 'Dá um ponto de reputação para outro usuário.',
             usage: '<user:user>',
         });
     }
